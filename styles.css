@@ -399,36 +399,9 @@ p {
 
 
 
-.tech-stack-section h2 {
-  margin-bottom: 1.2rem;
-}
 
-.tech-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
 
-.tech-pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.55rem 1rem;
-  border-radius: 999px;
-  background: rgba(13, 17, 30, 0.85);
-  border: 1px solid rgba(134, 166, 255, 0.55);
-  color: #e7eeff;
-  font-size: 0.92rem;
-  letter-spacing: 0.01em;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 0 12px rgba(115, 142, 255, 0.25);
-  transition: transform 0.25s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-}
 
-.tech-pill:hover {
-  transform: scale(1.05);
-  border-color: rgba(173, 150, 255, 0.92);
-  box-shadow: 0 0 20px rgba(124, 140, 255, 0.5);
-}
 
 .projects-section h2 {
   margin-bottom: 1.4rem;
@@ -1065,4 +1038,3 @@ main::before {
     grid-template-columns: 1fr;
   }
 }
-
