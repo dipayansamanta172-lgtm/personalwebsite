@@ -38,3 +38,24 @@ links.forEach((link) => {
 });
 
 onScroll();
+
+const revealTargets = document.querySelectorAll(
+  '#about, #skills, #projects, #timeline, #education, #languages, #about h2, #skills h2, #projects h2, #timeline h2, #education h2, #languages h2, #skills .skill-card, #projects .project-card, #timeline .timeline-card, #education .project-card, #languages .project-card'
+);
+
+revealTargets.forEach((element) => element.classList.add('reveal'));
+
+const revealObserver = new IntersectionObserver(
+  (entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('reveal-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.14, rootMargin: '0px 0px -6% 0px' }
+);
+
+revealTargets.forEach((element) => revealObserver.observe(element));
+
