@@ -4,6 +4,7 @@ const sections = document.querySelectorAll('main section[id]');
 const threshold = 18;
 
 const setScrolledNav = () => {
+  if (!navbar) return;
   navbar.classList.toggle('scrolled', window.scrollY > threshold);
 };
 
@@ -12,15 +13,18 @@ const setActiveLink = () => {
 
   sections.forEach((section) => {
     const id = section.getAttribute('id');
+    if (!id) return;
+
     const start = section.offsetTop;
     const end = start + section.offsetHeight;
+
     const link = document.querySelector(`.nav-link[href="#${id}"]`);
+    if (!link) return;
 
-    if (!link) {
-      return;
-    }
-
-    link.classList.toggle('active', currentPosition >= start && currentPosition < end);
+    link.classList.toggle(
+      'active',
+      currentPosition >= start && currentPosition < end
+    );
   });
 };
 
@@ -30,6 +34,7 @@ const onScroll = () => {
 };
 
 window.addEventListener('scroll', onScroll, { passive: true });
+
 links.forEach((link) => {
   link.addEventListener('click', () => {
     links.forEach((item) => item.classList.remove('active'));
@@ -39,22 +44,48 @@ links.forEach((link) => {
 
 onScroll();
 
-const revealTargets = document.querySelectorAll(
-  '#about, #skills, #projects, #timeline, #education, #languages, #about h2, #skills h2, #projects h2, #timeline h2, #education h2, #languages h2, #skills .skill-card, #projects .project-card, #timeline .timeline-card, #education .project-card, #languages .project-card'
-);
+const revealTargets = document.querySelectorAll(`
+  #about,
+  #skills,
+  #projects,
+  #timeline,
+  #education,
+  #languages,
+  #about h2,
+  #skills h2,
+  #projects h2,
+  #timeline h2,
+  #education h2,
+  #languages h2,
+  #skills .skill-card,
+  #projects .project-card,
+  #timeline .timeline-card,
+  #education .project-card,
+  #languages .project-card
+`);
 
-revealTargets.forEach((element) => element.classList.add('reveal'));
+revealTargets.forEach((el) => {
+  if (el) el.classList.add('reveal');
+});
 
-const revealObserver = new IntersectionObserver(
-  (entries, observer) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('reveal-visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.14, rootMargin: '0px 0px -6% 0px' }
-);
+if ('IntersectionObserver' in window) {
+  const revealObserver = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.14, rootMargin: '0px 0px -6% 0px' }
+  );
 
-revealTargets.forEach((element) => revealObserver.observe(element));
+  revealTargets.forEach((el) => {
+    if (el) revealObserver.observe(el);
+  });
+} else {
+  revealTargets.forEach((el) => {
+    if (el) el.classList.add('reveal-visible');
+  });
+}
